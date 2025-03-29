@@ -27,6 +27,7 @@ class ProductController extends Controller
         $data = [
             'products' => $productService->listproducts(),
             'tasks' => $this->taskService->getAllTasks(),
+            
         ];
         return view('products.index', $data);
 }

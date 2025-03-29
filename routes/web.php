@@ -11,8 +11,14 @@ use App\Services\ProductService;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome', ['name' => 'fabul-app']);
 });
+
+Route::get('/users', [UserController::class, 'index']);
+
+Route::resource('products', ProductController::class);
+
+
 // service container
 Route::get('/test-container', function (Request $request) {
     $input = $request->input('key');
@@ -54,15 +60,17 @@ Route::get('/test/route', function(){
 })->name('test-route');
 
 
-Route::middleware(['user-middleware'])->group(function (){
-    Route::get('route-middleware-group/first', function(Request $request){
-        echo 'first';
-    });
+// //middleware
+// Route::middleware(['user-middleware'])->group(function (){
+//     Route::get('route-middleware-group/first', function(Request $request){
+//         echo 'first';
+//     });
     
-    Route::get('route-middleware-group/second', function(Request $request){
-        echo 'second';
-    });
-});
+//     Route::get('route-middleware-group/second', function(Request $request){
+//         echo 'second';
+//     });
+// });
+
 
 //route -> controller
 Route::controller(UserController::class)->group(function(){
@@ -81,11 +89,13 @@ Route::post('/token', function(Request $request){
     return $request->all();
 });
 
+/*
 //controller -> middleware
 Route::get('/users', [UserController::class, 'index'])->middleware('user-middleware');
 
 //resource
 Route::resource('products', ProductController::class);
+*/
 
 //view with data
 Route::get('/product-list', function(ProductService $productService){

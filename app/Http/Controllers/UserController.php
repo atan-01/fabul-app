@@ -8,7 +8,8 @@ use App\Services\UserService;
 class UserController extends Controller
 {
     public function index(UserService $UserService){
-        return $UserService->listusers();
+        return view('users.index', ['users' => $UserService->listUsers()
+    ]);
     }
 
     public function first(UserService $userService) {
